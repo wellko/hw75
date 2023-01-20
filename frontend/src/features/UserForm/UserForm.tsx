@@ -1,18 +1,23 @@
-import {TextField} from '@mui/material';
-import {useState} from 'react';
+import {CircularProgress, TextField} from '@mui/material';
+import React, {useEffect, useState} from 'react';
 import {useAppDispatch} from "../../app/hooks";
 import {decodeCipher, encodeCipher} from "./UserFormThunks";
 import {FormState} from "../../types";
 
 interface Props {
-	props: FormState
+	props: FormState;
+	loading: boolean;
 }
 
-const UserForm:React.FC<Props> = ({props}) => {
+const UserForm:React.FC<Props> = ({props, loading}) => {
 
 	const dispatch = useAppDispatch();
 
-	const [formText, setFormText] = useState<FormState>(props)
+	const [formText, setFormText] = useState<FormState>(props);
+
+	useEffect(()=> {
+		setFormText(props);
+	}, [props])
 
 	const ChangeEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const {name, value} = e.target;
@@ -56,8 +61,10 @@ const UserForm:React.FC<Props> = ({props}) => {
 				value={formText.message}
 				onChange={ChangeEvent}
 			/>
-			<button disabled={!(formText.password.length > 0 && formText.message.length > 0)} onClick={EncodeEvent}>Encode</button>
-			<button disabled={!(formText.password.length > 0 && formText.cipher.length > 0)} onClick={DecodeEvent}>Decode</button>
+			<button disabled={!(formText.password.length > 0 && formText.message.length > 0)}
+					onClick={EncodeEvent}>{loading? <CircularProgress/> : 'Encode'}</button>
+			<button disabled={!(formText.password.length > 0 && formText.cipher.length > 0)}
+					onClick={DecodeEvent}>{loading? <CircularProgress/> : 'Decode'}</button>
 		</div>
 	);
 };
