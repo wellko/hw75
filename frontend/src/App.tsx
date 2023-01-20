@@ -1,12 +1,12 @@
 import React from 'react';
 import UserForm from "./features/UserForm/UserForm";
 import {useAppSelector} from "./app/hooks";
-import {selectProducts} from "./features/UserForm/UserFormSlice";
+import {selectCipherApp} from "./features/UserForm/UserFormSlice";
 import {Container} from "@mui/material";
 
 
 function App() {
-    const mainState = useAppSelector(selectProducts);
+    const mainState = useAppSelector(selectCipherApp);
 
     return (
         <div className="App">

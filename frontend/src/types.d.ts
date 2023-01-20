@@ -1,18 +1,15 @@
 export interface CipherType {
-	password: string;
-	message: string;
+    password: string;
+    message: string;
 }
 
-export interface SliceState {
-	cipher: string;
-	message: string;
-	password: string;
-	loadingEncode: boolean;
-	loadingDecode: boolean;
+export interface FormState extends CipherType {
+    cipher: string;
 }
 
-export interface FormState {
-	message: string;
-	password: string;
-	cipher: string;
+export interface SliceState extends FormState {
+    loadingEncode: boolean;
+    loadingDecode: boolean;
 }
+
+

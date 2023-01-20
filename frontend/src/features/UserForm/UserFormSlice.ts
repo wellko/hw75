@@ -43,10 +43,5 @@ export const UserFormSlice = createSlice({
 	}
 });
 
-
-
 export const UserFormReducer = UserFormSlice.reducer;
-
-
-
-export const selectProducts = (state: RootState) => state.message;
+export const selectCipherApp = (state: RootState) => state.message;
