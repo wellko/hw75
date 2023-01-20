@@ -7,7 +7,8 @@ const initialState : SliceState = {
 	message: '',
 	cipher: '',
 	password: '',
-	loading: false,
+	loadingEncode: false,
+	loadingDecode: false
 }
 
 export const UserFormSlice = createSlice({
@@ -16,28 +17,28 @@ export const UserFormSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) =>{
 		builder.addCase(encodeCipher.pending, (state) => {
-			state.loading = true;
+			state.loadingEncode = true;
 		});
 		builder.addCase(encodeCipher.fulfilled, (state, action) => {
-			state.loading = false;
+			state.loadingEncode = false;
 			state.cipher = action.payload.message;
 			state.password = action.payload.password;
 			state.message = '';
 		});
 		builder.addCase(encodeCipher.rejected, (state) => {
-			state.loading = false;
+			state.loadingEncode = false;
 		});
 		builder.addCase(decodeCipher.pending, (state) => {
-			state.loading = true;
+			state.loadingDecode = true;
 		});
 		builder.addCase(decodeCipher.fulfilled, (state,action) => {
-			state.loading = false;
+			state.loadingDecode = false;
 			state.message = action.payload.message;
 			state.password = action.payload.password;
 			state.cipher = '';
 		});
 		builder.addCase(decodeCipher.rejected, (state) => {
-			state.loading = false;
+			state.loadingDecode = false;
 		})
 	}
 });
@@ -49,5 +50,3 @@ export const UserFormReducer = UserFormSlice.reducer;
 
 
 export const selectProducts = (state: RootState) => state.message;
-
-export const selectProductsLoading = (state: RootState) => state.message;

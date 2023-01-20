@@ -1,15 +1,17 @@
-import {CircularProgress, TextField} from '@mui/material';
+import {CircularProgress, IconButton, TextField} from '@mui/material';
 import React, {useEffect, useState} from 'react';
 import {useAppDispatch} from "../../app/hooks";
 import {decodeCipher, encodeCipher} from "./UserFormThunks";
 import {FormState} from "../../types";
+import {ArrowDownward, ArrowUpward} from "@mui/icons-material";
 
 interface Props {
 	props: FormState;
-	loading: boolean;
+	loadingEncode: boolean;
+	loadingDecode: boolean;
 }
 
-const UserForm:React.FC<Props> = ({props, loading}) => {
+const UserForm:React.FC<Props> = ({props, loadingEncode, loadingDecode}) => {
 
 	const dispatch = useAppDispatch();
 
@@ -61,10 +63,10 @@ const UserForm:React.FC<Props> = ({props, loading}) => {
 				value={formText.message}
 				onChange={ChangeEvent}
 			/>
-			<button disabled={!(formText.password.length > 0 && formText.message.length > 0)}
-					onClick={EncodeEvent}>{loading? <CircularProgress/> : 'Encode'}</button>
-			<button disabled={!(formText.password.length > 0 && formText.cipher.length > 0)}
-					onClick={DecodeEvent}>{loading? <CircularProgress/> : 'Decode'}</button>
+			<IconButton disabled={!(formText.password.length > 0 && formText.message.length > 0 && !loadingDecode)}
+					onClick={EncodeEvent}>{loadingEncode? <CircularProgress size={32}/> : <ArrowUpward fontSize='large'/>}</IconButton>
+			<IconButton disabled={!(formText.password.length > 0 && formText.cipher.length > 0 && !loadingDecode)}
+					onClick={DecodeEvent}>{loadingDecode? <CircularProgress size={32}/> : <ArrowDownward fontSize='large'/>}</IconButton>
 		</div>
 	);
 };

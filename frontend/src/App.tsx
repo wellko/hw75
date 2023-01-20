@@ -15,7 +15,8 @@ function App() {
                 cipher: mainState.cipher,
                 password: mainState.password,
             }}
-                      loading={mainState.loading}/>
+                      loadingEncode={mainState.loadingEncode}
+            loadingDecode={mainState.loadingDecode}/>
 
 
         </div>

@@ -7,7 +7,8 @@ export interface SliceState {
 	cipher: string;
 	message: string;
 	password: string;
-	loading: boolean;
+	loadingEncode: boolean;
+	loadingDecode: boolean;
 }
 
 export interface FormState {
